@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+service AsylumService {
+    rpc AsylumPing (AsylumPingReq) returns (AsylumPingRsp) {
+    }
+    rpc TakeActor (TakeActorReq) returns (TakeActorRsp) {
+    };
+}
+
+message AsylumPingReq {
+}
+
+message AsylumPingRsp {
+}
+
+message TakeActorRsp {
+}
+
+message TakeActorReq {
+    string token = 1;
+}
