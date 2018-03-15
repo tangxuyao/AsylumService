@@ -1,9 +1,9 @@
 package asylum
 
 import (
+	"../../MongoData"
 	"proto/asylum"
 	"golang.org/x/net/context"
-	"../../MongoData"
 	"gopkg.in/mgo.v2/bson"
 	"time"
 	"log"
@@ -14,13 +14,14 @@ type AsylumService struct {
 }
 
 func (s *AsylumService) TakeActor(c context.Context, req *asylum_api.TakeActorReq, rsp *asylum_api.TakeActorRsp) error {
-	log.Println("enter take actor scope..")
-	actor := mongo.Charactor{ID: bson.ObjectId(req.Token)}
+	actor := mongo.Charactor{ID: bson.ObjectIdHex(req.Token)}
 	if err := actor.RemoveByID(s.M, mongo.DB_GLOBAL); err != nil {
+		log.Fatalf("从%s移除时发生异常: %s\n", mongo.DB_GLOBAL, err)
 		return err
 	}
 
 	if err := actor.ToDB(s.M, mongo.DB_ASYLUM); err != nil {
+		log.Fatalf("保存到%s出错: %s\n", mongo.DB_ASYLUM, err)
 		return err
 	}
 
@@ -37,6 +38,7 @@ func (s *AsylumService) TakeActor(c context.Context, req *asylum_api.TakeActorRe
 	}
 
 	t.ToDB(s.M)
+	log.Println("TakeActor Successful!!!")
 	return nil
 }
 
