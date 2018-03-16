@@ -6,6 +6,7 @@ import (
 	"./src"
 	"proto/asylum"
 	"fmt"
+	"github.com/tangxuyao/Frameworks"
 )
 
 func main() {
@@ -25,6 +26,9 @@ func main() {
 	asylum_api.RegisterAsylumServiceHandler(service.Server(), handler)
 
 	fmt.Println("AsylumService starting...")
+
+	d := Frameworks.NewDispatcher(10)
+	d.Run()
 
 	if err := service.Run(); err != nil {
 		panic(err)

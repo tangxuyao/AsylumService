@@ -3,7 +3,9 @@ syntax = "proto3";
 service AsylumService {
     rpc AsylumPing (AsylumPingReq) returns (AsylumPingRsp) {
     }
-    rpc TakeActor (TakeActorReq) returns (TakeActorRsp) {
+    rpc StartStory (StartStoryReq) returns (StartStoryRsp) {
+    };
+    rpc RunStory (RunStoryReq) returns (RunStoryRsp) {
     };
 }
 
@@ -13,9 +15,16 @@ message AsylumPingReq {
 message AsylumPingRsp {
 }
 
-message TakeActorRsp {
+message StartStoryReq {
+    string token = 1;
 }
 
-message TakeActorReq {
+message StartStoryRsp {
+}
+
+message RunStoryReq {
     string token = 1;
+}
+
+message RunStoryRsp {
 }
