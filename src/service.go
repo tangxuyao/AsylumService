@@ -18,6 +18,8 @@ func (s *AsylumService) StartStory(c context.Context, req *asylum_api.StartStory
 }
 
 func (s *AsylumService) RunStory(ctx context.Context, req *asylum_api.RunStoryReq, rsp *asylum_api.RunStoryRsp) error {
+	job := &JobRunStory{M: s.M, Token: req.Token}
+	Frameworks.JobQueue <- job
 	return nil
 }
 
